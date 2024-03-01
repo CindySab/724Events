@@ -13,7 +13,16 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const {data} = useData() // remplacement de last par data
+  
+  /*
+  Classement des évènements par date décroissante.
+  Stockage de la plus récente dans un tableau
+  */
+  const last = data?.events.sort((evtA, evtB) =>
+    new Date(evtB.date) - new Date(evtA.date) 
+  )[0];
+
   return <>
     <header>
       <Menu />
@@ -116,13 +125,16 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+        {last && last.title && ( // Si last est bien défini et contient un titre alors on monte le composant EventCard
+      <EventCard
+        imageSrc={last.cover}
+        title={last.title}
+        date={new Date(last.date)}
+        small
+        // Changement du label pour remplacer boom par le type
+        label={last.type}
+      />
+    )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
