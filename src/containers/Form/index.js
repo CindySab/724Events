@@ -4,11 +4,11 @@ import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
 import Button, { BUTTON_TYPES } from "../../components/Button";
 
-const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 900); }) // de 1000 à 900 
+const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 900); }) // from 1000 to 900
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
-  const formRef = useRef(null); // utilisation de la fonction useRef(null) pour créer une référence à l'élément <form> du formulaire
+  const formRef = useRef(null); // using the useRef(null) function to create a reference to the form's <form> element
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
@@ -17,8 +17,8 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
-        onSuccess(); // Ajout de onSuccess pour avoir le message de confirmation
-        formRef.current.reset(); // Réinitialiser le formulaire
+        onSuccess(); // Added onSuccess to get the confirmation message
+        formRef.current.reset(); // Resetting the form
       } catch (err) {
         setSending(false);
         onError(err);
@@ -27,7 +27,7 @@ const Form = ({ onSuccess, onError }) => {
     [onSuccess, onError]
   );
   return (
-    <form onSubmit={sendContact} ref={formRef}> {/** Ajout de formRef */}
+    <form onSubmit={sendContact} ref={formRef}> {/** Add formRef */}
       <div className="row">
         <div className="col">
           <Field placeholder="" label="Nom" />

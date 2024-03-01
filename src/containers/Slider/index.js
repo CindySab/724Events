@@ -9,15 +9,15 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     /*
-    Inversement de l'opérateur logique pour trier les dates en ordre décroissant
+    Reversing the logical operator to sort dates in descending order
     */
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
   );
 
   const nextCard = () => {
-    if (byDateDesc && byDateDesc.length > 0) { // Ajout de vérification de lenght pour envlever erreur console
+    if (byDateDesc && byDateDesc.length > 0) { // Added length check to remove console error
       setTimeout(
-        /** Ajout de +1 à l'index pour supprimer l'image blanche */
+        /** Adding +1 to index to remove white image */
         () => setIndex((index + 1) % byDateDesc.length),
         5000
       );
@@ -31,10 +31,10 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        /** Ajout de React Fragment afin d'envelopper chaque élément de la map et ainsi leur attribuer une clé unique */
+        /** Added React Fragment to wrap each element of the map and thus assign them a unique key */
         <React.Fragment key={`focus-${event.title}-${event.date}-${event.description}`}>
           <div
-            /** Modification de la key afin qu'elle soit unique */
+            /** Changing the key so that it is unique */
             className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}
           >
             <img src={event.cover} alt="forum" />
@@ -50,13 +50,13 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  /* Remplacement de la key pour la date en cours */
+                  /* Replacing the key for the current date */
                   key={_.date}
                   type="radio"
                   name="radio-button"
-                  /** Changement de idx par index pour que les boutons radio se mettent bien à jour */
+                  /** Changing idx by index so that the radio buttons update properly */
                   checked={index === radioIdx}
-                  readOnly // Ajout de readOnly pour enlever erreur console + modification css pour ajout couleur bleue
+                  readOnly // Added readOnly to remove console error
                 />
               ))}
             </div>

@@ -13,11 +13,11 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {data} = useData() // remplacement de last par data
+  const {data} = useData() // replacing last with data
   
   /*
-  Classement des évènements par date décroissante.
-  Stockage de la plus récente dans un tableau
+  Ranking of events by descending date.
+  Storing the most recent in an array.
   */
   const last = data?.events.sort((evtA, evtB) =>
     new Date(evtB.date) - new Date(evtA.date) 
@@ -125,13 +125,13 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        {last && last.title && ( // Si last est bien défini et contient un titre alors on monte le composant EventCard
+        {last && last.title && ( // If last is well defined and contains a title then we mount the EventCard component
       <EventCard
         imageSrc={last.cover}
         title={last.title}
         date={new Date(last.date)}
         small
-        // Changement du label pour remplacer boom par le type
+        // Changed the label to replace boom with the type
         label={last.type}
       />
     )}
